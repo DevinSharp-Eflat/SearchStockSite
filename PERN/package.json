@@ -22,5 +22,9 @@
     "concurrently": "^9.0.1",
     "nodemon": "^3.1.7",
     "wait-on": "^8.0.1"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "tailwind": "^4.0.0"
   }
 }
