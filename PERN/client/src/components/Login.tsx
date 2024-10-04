@@ -48,7 +48,7 @@ const SignUpContainer = styled(Stack)(({ theme }) => ({
   }),
 }));
 
-export default function SignUp() {
+export default function Login() {
   const [mode, setMode] = React.useState<PaletteMode>("light");
   const defaultTheme = createTheme({ palette: { mode } });
   const [passwordError, setPasswordError] = React.useState(false);
@@ -74,9 +74,9 @@ export default function SignUp() {
 
     let isValid = true;
 
-    if (!password.value || password.value.length < 6) {
+    if (!password.value || password.value.length < 1) {
       setPasswordError(true);
-      setPasswordErrorMessage("Password must be at least 6 characters long.");
+      setPasswordErrorMessage("Password is required.");
       isValid = false;
     } else {
       setPasswordError(false);
@@ -99,11 +99,15 @@ export default function SignUp() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     try {
-      const response = await axios.post("/api/user/signup", {
+      const response = await axios.post("/api/user/login", {
         username: data.get("username"),
         password: data.get("password"),
       });
       const token = response.data.token;
+      if (!token) {
+        console.error("Unable to authenticate");
+        return;
+      }
       localStorage.setItem("jwt", token);
       window.location.href = "/";
     } catch (error) {
@@ -129,7 +133,7 @@ export default function SignUp() {
               variant="h4"
               sx={{ width: "100%", fontSize: "clamp(2rem, 10vw, 2.15rem)" }}
             >
-              Sign up
+              Login
             </Typography>
             <Box
               component="form"
@@ -174,17 +178,17 @@ export default function SignUp() {
                 variant="contained"
                 onClick={validateInputs}
               >
-                Sign up
+                Login
               </Button>
               <Typography sx={{ textAlign: "center" }}>
-                Already have an account?{" "}
+                Don't have an account?{" "}
                 <span>
                   <Link
-                    href="/login"
+                    href="/signup"
                     variant="body2"
                     sx={{ alignSelf: "center" }}
                   >
-                    Sign in
+                    Create Account
                   </Link>
                 </span>
               </Typography>

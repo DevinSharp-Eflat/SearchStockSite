@@ -23,6 +23,10 @@ export class User extends Model<
   async hashPassword() {
     this.password = await bcrypt.hash(this.password, bcrypt.genSaltSync(10));
   }
+
+  async validatePassword(password: string) {
+    return await bcrypt.compare(password, this.password);
+  }
 }
 export function UserFactory(sequelize: Sequelize) {
   User.init(
