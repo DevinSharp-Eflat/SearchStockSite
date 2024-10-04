@@ -6,9 +6,13 @@ const router = Router();
 
 router.post("/signup", async (req, res) => {
   const user = await User.create(req.body);
-  const token = jwt.sign({ userId: user.id }, "keyboard-cat", {
-    expiresIn: "7d",
-  });
+  const token = jwt.sign(
+    { userId: user.id, username: user.username },
+    "keyboard-cat",
+    {
+      expiresIn: "7d",
+    }
+  );
   res.json({ token });
 });
 
@@ -23,9 +27,13 @@ router.post("/login", async (req, res) => {
     res.json({ error: "Unable to authenticate" });
     return;
   }
-  const token = jwt.sign({ userId: user.id }, "keyboard-cat", {
-    expiresIn: "7d",
-  });
+  const token = jwt.sign(
+    { userId: user.id, username: user.username },
+    "keyboard-cat",
+    {
+      expiresIn: "7d",
+    }
+  );
   res.json({ token });
 });
 
