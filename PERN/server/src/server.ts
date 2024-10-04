@@ -1,8 +1,10 @@
 import express from 'express';
 //import sequelize from './config/connection.js';
 import routes from './routes/index.js';
+import cors from 'cors';
 
 const app = express();
+app.use(cors());
 const PORT = process.env.PORT || 3001;
 
 // Serves static files in the entire client's dist folder
