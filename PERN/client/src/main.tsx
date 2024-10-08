@@ -27,7 +27,7 @@ const router = createBrowserRouter([
         element: <Login />,
       },
       {
-        path: "details",
+        path: "details/:stockTicker",
         element: <DetailsPage />,
       },
     ],
