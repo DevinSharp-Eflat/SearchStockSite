@@ -17,19 +17,22 @@ function HomePage() {
         _event: React.MouseEvent<HTMLDivElement, MouseEvent>,
         index: number,
     )  => {
-        setSelectedIndex(index);
+        //use data[index] for symbol?
+        console.log(data[index].symbol)
+        let path = `http://localhost:3000/details`;
+        //window.location.href = path;
     };
 
     //will need to do an API call to pull in the top5/bottom5 stocks
 
-    const [data, setData] = useState([{symbol: ""}]);
+    const [data, setData] = useState([{symbol: "", low: 0, high: 0}]);
 
     useEffect(() => {
       const fetchData = async () => {
         try {
           const response = await fetch("http://localhost:3001/topStocks");
           const jsonData = await response.json();
-          console.log("fetched data or sumthin", jsonData);
+          //console.log("fetched data or sumthin", jsonData);
           setData(jsonData);
         } catch (error) {
           console.error('Error fetching data:', error);
@@ -43,7 +46,7 @@ function HomePage() {
         <>
 
             <h1>Top 5 performing stocks</h1>
-            <Box sx ={{ width:'50%' , bgcolor: 'blue'}}>
+            <Box sx ={{ width:'100%' , bgcolor: 'yellow'}}>
                 {data && data.map(stock => (
                 <List>
                     <ListItemButton
@@ -53,13 +56,12 @@ function HomePage() {
                         <ListItemIcon>
                             
                         </ListItemIcon>
-                        <ListItemText primary={stock.symbol} secondary="stockprice"/>
+                        <ListItemText primary={stock.symbol} secondary= {`open: $ ${String(stock.low)}`} />
                     </ListItemButton>
                 </List>
                 )
             )}
             </Box>
-        <footer>Powered by twelvedata API</footer>
         </>
     );
 }

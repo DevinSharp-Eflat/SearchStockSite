@@ -5,6 +5,8 @@ import App from "./App.tsx";
 import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import HomePage from "./homePage.tsx";
+import DetailsPage from "./detailsPage.tsx";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -14,6 +16,10 @@ const router = createBrowserRouter([
         index: true,
         element: <HomePage />,
       },
+      {
+        path: "details",
+        element: <DetailsPage />,
+      }
     ],
   },
 ]);
