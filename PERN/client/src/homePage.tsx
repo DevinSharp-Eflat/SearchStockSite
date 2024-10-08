@@ -19,8 +19,8 @@ function HomePage() {
     )  => {
         //use data[index] for symbol?
         console.log(data[index].symbol)
-        let path = `http://localhost:3000/details`;
-        //window.location.href = path;
+        let path = `http://localhost:3000/details/${data[index].symbol}`;
+        window.location.href = path;
     };
 
     //will need to do an API call to pull in the top5/bottom5 stocks

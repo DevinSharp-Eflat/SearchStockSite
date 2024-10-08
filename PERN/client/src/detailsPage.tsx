@@ -8,6 +8,7 @@ import { styled } from '@mui/material/styles';
 import { useEffect, useState } from 'react';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid2';
+import { useParams } from 'react-router-dom';
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -25,14 +26,15 @@ function DetailsPage() {
     //will need to do an API call with the stock symbol passed to get detailed info
 
     const [data, setData] = useState({symbol: "", open: 0, high: 0, low: 0, close: 0});
+    const { stockTicker } = useParams();
 
     useEffect(() => {
         const fetchData = async () => {
           try {
-            const response = await fetch("http://localhost:3001/stockDetails");
+            const response = await fetch(`http://localhost:3001/stockDetails/${stockTicker}`);
             const jsonData = await response.json();
             console.log("fetched data or sumthin", jsonData);
-            setData(jsonData);
+            setData(jsonData[0]);
           } catch (error) {
             console.error('Error fetching data:', error);
           }

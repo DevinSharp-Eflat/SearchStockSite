@@ -5,6 +5,7 @@ import apiRoutes from "./api/index.js";
 import homePageRoutes from './homePageRoutes.js';
 import detailsPageRoute from './detailsPageRoute.js';
 
+
 const router = Router();
 router.use("/", htmlRoutes);
 //router.use('/api', apiRoutes); <- here you should put your routes
