@@ -15,6 +15,7 @@ export class User extends Model<
   declare id: CreationOptional<number>;
   declare username: string;
   declare password: string;
+  declare favoriteStocks: string;
 
   // Here we create an Instance Method to work with the user's email address before saving it to the database
   // async setEmailToLowerCase() {
@@ -44,6 +45,11 @@ export function UserFactory(sequelize: Sequelize) {
       password: {
         type: DataTypes.STRING,
         allowNull: false,
+      },
+      favoriteStocks: {
+        type: DataTypes.STRING,
+        allowNull: true,
+
       },
     },
     {

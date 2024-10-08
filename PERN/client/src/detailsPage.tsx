@@ -9,6 +9,8 @@ import { useEffect, useState } from 'react';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid2';
 import { useParams } from 'react-router-dom';
+import { Button } from '@mui/material';
+import axios from 'axios';
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -22,11 +24,13 @@ const Item = styled(Paper)(({ theme }) => ({
   }),
 }));
 
+
 function DetailsPage() {
     //will need to do an API call with the stock symbol passed to get detailed info
 
     const [data, setData] = useState({symbol: "", open: 0, high: 0, low: 0, close: 0});
     const { stockTicker } = useParams();
+    const [userDetails, setUserDetails] = useState({ userId: "" });
 
     useEffect(() => {
         const fetchData = async () => {
@@ -39,9 +43,24 @@ function DetailsPage() {
             console.error('Error fetching data:', error);
           }
         };
+        const getUserData = async () => {
+          try {
+              const jwt = localStorage.getItem("jwt");
+              const response = await axios.post(`/api/user/verify`, { token: jwt });
+              console.log(response.data);
+              setUserDetails(response.data)
+          } catch {
+              return 
+          }
+      }
     
         fetchData();
+        getUserData()
       }, []);
+
+      async function favoriteClick(_event:any) {
+        await axios.post(`/api/user/${userDetails.userId}/favorite-stock`, {stockSymbol: data.symbol});
+      }
 
     return(
         <>
@@ -49,6 +68,7 @@ function DetailsPage() {
       <Grid container spacing={2}>
         <Grid size={{ xs: 12, md: 5, lg: 4 }}>
           <Item>{data.symbol}: Stock Symbol</Item>
+          {userDetails.userId && <Button variant="outlined" onClick={(event) => favoriteClick(event)}>Favorite</Button>}
         </Grid>
         <Grid container spacing={4} size={{ xs: 12, md: 7, lg: 8 }}>
           <Grid size={{ xs: 6, lg: 3 }}>

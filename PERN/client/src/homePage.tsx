@@ -19,7 +19,7 @@ function HomePage() {
     )  => {
         //use data[index] for symbol?
         console.log(data[index].symbol)
-        let path = `http://localhost:3000/details/${data[index].symbol}`;
+        let path = `/details/${data[index].symbol}`;
         window.location.href = path;
     };
 
@@ -30,7 +30,7 @@ function HomePage() {
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const response = await fetch("http://localhost:3001/topStocks");
+          const response = await fetch("/topStocks");
           const jsonData = await response.json();
           //console.log("fetched data or sumthin", jsonData);
           setData(jsonData);

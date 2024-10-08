@@ -8,6 +8,7 @@ import SignUp from "./components/SignUp.tsx";
 import Login from "./components/Login.tsx";
 import HomePage from "./homePage.tsx";
 import DetailsPage from "./detailsPage.tsx";
+import AccountDetails from './components/AccountDetails.tsx';
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
         path: "details/:stockTicker",
         element: <DetailsPage />,
       },
+      {
+        path: "account",
+        element: <AccountDetails/>
+      }
     ],
   },
 ]);
