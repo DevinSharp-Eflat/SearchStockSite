@@ -1,15 +1,30 @@
-import React from "react";
+import React, { useMemo } from "react";
 
 import "./App.css";
 import { Outlet } from "react-router-dom";
-import React from "react";
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import { useState } from "react";
+import { Button, PaletteMode } from "@mui/material";
+import Head from "./components/Head";
 
-function App() {
+
+export default function App() {
+  const [theme, setTheme] = useState('dark' as PaletteMode)
+  const themeData = useMemo(() =>  createTheme({
+    palette: {
+      mode: theme,
+    },
+  }),[theme]);
   return (
     <>
-      <Outlet />
+      <ThemeProvider theme={themeData}>
+        <CssBaseline />
+        <Button onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>Toggle Theme</Button>
+        <Head/>
+        <Outlet />
+      </ThemeProvider>
+
     </>
   );
 }
-
-export default App;
