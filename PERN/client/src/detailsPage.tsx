@@ -11,6 +11,7 @@ import Grid from '@mui/material/Grid2';
 import { useParams } from 'react-router-dom';
 import { Button, Divider, Stack } from '@mui/material';
 import axios from 'axios';
+import { alignProperty } from '@mui/material/styles/cssUtils';
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -64,23 +65,25 @@ function DetailsPage() {
 
   return (
     <>
-      <Box sx={{ width: 100, height: 100, borderRadius: 4, bgcolor: "lightgrey", textTransform: 'uppercase'  }}>
-        <Stack direction="row" sx={{ jusitfyContent: 'space-between', alignItems: 'center'}}>
+      <Box sx={{ width: "80%", height: "60%", border: 10, bgcolor: "lightgrey", textTransform: 'uppercase', alignSelf: 'center' }}>
+        <Stack direction="row" spacing={20} sx={{alignItems: 'center'}}>
           <h1>{data.symbol}</h1>
           {userDetails.userId && <Button variant="outlined" onClick={(event) => favoriteClick(event)}>Favorite</Button>}
         </Stack>
         <Divider />
-          <Stack direction="row" sx={{ jusitfyContent: 'space-between', alignItems: 'center'}}>
-            <Box sx={{ fontSize: '22px', textTransform: 'uppercase' }}>
+          <Stack   direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 1, sm: 2, md: 4 }} sx={{ jusitfyContent: 'space-between', alignItems: 'center'}}>
+            <Box sx={{ fontSize: '40px', textTransform: 'uppercase' }}>
               Open: {String(data.open)}
             </Box>
-            <Box sx={{ fontSize: '22px', textTransform: 'uppercase' }}>
+            <Box sx={{ fontSize: '40px', textTransform: 'uppercase' }}>
               Low: {String(data.low)}
             </Box>
-            <Box sx={{ fontSize: '22px', textTransform: 'uppercase' }}>
+          </Stack>
+          <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 1, sm: 2, md: 4 }} sx={{ jusitfyContent: 'space-between', alignItems: 'center'}}>
+            <Box sx={{ fontSize: '40px', textTransform: 'uppercase' }}>
               High: {String(data.high)}
             </Box>
-            <Box sx={{ fontSize: '22px', textTransform: 'uppercase' }}>
+            <Box sx={{ fontSize: '40px', textTransform: 'uppercase' }}>
               Close: {String(data.close)}
             </Box>
           </Stack>
