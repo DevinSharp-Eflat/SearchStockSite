@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid2';
 import { useParams } from 'react-router-dom';
-import { Button } from '@mui/material';
+import { Button, Divider, Stack } from '@mui/material';
 import axios from 'axios';
 
 
@@ -26,113 +26,67 @@ const Item = styled(Paper)(({ theme }) => ({
 
 
 function DetailsPage() {
-    //will need to do an API call with the stock symbol passed to get detailed info
+  //will need to do an API call with the stock symbol passed to get detailed info
 
-    const [data, setData] = useState({symbol: "", open: 0, high: 0, low: 0, close: 0});
-    const { stockTicker } = useParams();
-    const [userDetails, setUserDetails] = useState({ userId: "" });
+  const [data, setData] = useState({ symbol: "", open: 0, high: 0, low: 0, close: 0 });
+  const { stockTicker } = useParams();
+  const [userDetails, setUserDetails] = useState({ userId: "" });
 
-    useEffect(() => {
-        const fetchData = async () => {
-          try {
-            const response = await fetch(`http://localhost:3001/stockDetails/${stockTicker}`);
-            const jsonData = await response.json();
-            console.log("fetched data or sumthin", jsonData);
-            setData(jsonData[0]);
-          } catch (error) {
-            console.error('Error fetching data:', error);
-          }
-        };
-        const getUserData = async () => {
-          try {
-              const jwt = localStorage.getItem("jwt");
-              const response = await axios.post(`/api/user/verify`, { token: jwt });
-              console.log(response.data);
-              setUserDetails(response.data)
-          } catch {
-              return 
-          }
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`http://localhost:3001/stockDetails/${stockTicker}`);
+        const jsonData = await response.json();
+        console.log("fetched data or sumthin", jsonData);
+        setData(jsonData[0]);
+      } catch (error) {
+        console.error('Error fetching data:', error);
       }
-    
-        fetchData();
-        getUserData()
-      }, []);
-
-      async function favoriteClick(_event:any) {
-        await axios.post(`/api/user/${userDetails.userId}/favorite-stock`, {stockSymbol: data.symbol});
+    };
+    const getUserData = async () => {
+      try {
+        const jwt = localStorage.getItem("jwt");
+        const response = await axios.post(`/api/user/verify`, { token: jwt });
+        console.log(response.data);
+        setUserDetails(response.data)
+      } catch {
+        return
       }
+    }
 
-    return(
-        <>
-          <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={2}>
-        <Grid size={{ xs: 12, md: 5, lg: 4 }}>
-          <Item>{data.symbol}: Stock Symbol</Item>
+    fetchData();
+    getUserData()
+  }, []);
+
+  async function favoriteClick(_event: any) {
+    await axios.post(`/api/user/${userDetails.userId}/favorite-stock`, { stockSymbol: data.symbol });
+  }
+
+  return (
+    <>
+      <Box sx={{ width: 100, height: 100, borderRadius: 4, bgcolor: "lightgrey", textTransform: 'uppercase'  }}>
+        <Stack direction="row" sx={{ jusitfyContent: 'space-between', alignItems: 'center'}}>
+          <h1>{data.symbol}</h1>
           {userDetails.userId && <Button variant="outlined" onClick={(event) => favoriteClick(event)}>Favorite</Button>}
-        </Grid>
-        <Grid container spacing={4} size={{ xs: 12, md: 7, lg: 8 }}>
-          <Grid size={{ xs: 6, lg: 3 }}>
-            <Item>
-              <Box
-                id="Open"
-                sx={{ fontSize: '12px', textTransform: 'uppercase' }}
-              >
-                Open: {String(data.open)}
-              </Box>
-              <Box component="ul" aria-labelledby="category-a" sx={{ pl: 2 }}>
-              </Box>
-            </Item>
-          </Grid>
-          <Grid size={{ xs: 6, lg: 3 }}>
-            <Item>
-              <Box
-                id="low"
-                sx={{ fontSize: '12px', textTransform: 'uppercase' }}
-              >
-                Low: {String(data.low)}
-              </Box>
-              <Box component="ul" aria-labelledby="category-b" sx={{ pl: 2 }}>
-              </Box>
-            </Item>
-          </Grid>
-          <Grid size={{ xs: 6, lg: 3 }}>
-            <Item>
-              <Box
-                id="high"
-                sx={{ fontSize: '12px', textTransform: 'uppercase' }}
-              >
-                High: {String(data.high)}
-              </Box>
-              <Box component="ul" aria-labelledby="category-c" sx={{ pl: 2 }}>
-              </Box>
-            </Item>
-          </Grid>
-          <Grid size={{ xs: 6, lg: 3 }}>
-            <Item>
-              <Box
-                id="close"
-                sx={{ fontSize: '12px', textTransform: 'uppercase' }}
-              >
-                Close: {String(data.close)}
-              </Box>
-              <Box component="ul" aria-labelledby="category-d" sx={{ pl: 2 }}>
-              </Box>
-            </Item>
-          </Grid>
-        </Grid>
-        <Grid
-          container
-          justifyContent="space-between"
-          alignItems="center"
-          flexDirection={{ xs: 'column', sm: 'row' }}
-          sx={{ fontSize: '12px' }}
-          size={12}
-        >
-        </Grid>
-      </Grid>
-    </Box>
-        </>
-    );
+        </Stack>
+        <Divider />
+          <Stack direction="row" sx={{ jusitfyContent: 'space-between', alignItems: 'center'}}>
+            <Box sx={{ fontSize: '22px', textTransform: 'uppercase' }}>
+              Open: {String(data.open)}
+            </Box>
+            <Box sx={{ fontSize: '22px', textTransform: 'uppercase' }}>
+              Low: {String(data.low)}
+            </Box>
+            <Box sx={{ fontSize: '22px', textTransform: 'uppercase' }}>
+              High: {String(data.high)}
+            </Box>
+            <Box sx={{ fontSize: '22px', textTransform: 'uppercase' }}>
+              Close: {String(data.close)}
+            </Box>
+          </Stack>
+      </Box>
+    </>
+  );
 }
 
 export default DetailsPage;
