@@ -1,29 +1,11 @@
-import * as React from 'react';
 import Box from '@mui/material/Box';
-import List from '@mui/material/List';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import { styled } from '@mui/material/styles';
 import { useEffect, useState } from 'react';
-import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid2';
 import { useParams } from 'react-router-dom';
 import { Button, Divider, Stack } from '@mui/material';
 import axios from 'axios';
-import { alignProperty } from '@mui/material/styles/cssUtils';
+import SearchBar from './components/SearchBar';
+import * as React from 'react';
 
-
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-  ...theme.applyStyles('dark', {
-    backgroundColor: '#1A2027',
-  }),
-}));
 
 
 function DetailsPage() {

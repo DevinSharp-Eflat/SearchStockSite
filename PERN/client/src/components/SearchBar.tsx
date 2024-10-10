@@ -3,6 +3,7 @@ import { useState } from "react";
 import { List, TextField } from "@mui/material";
 import axios from 'axios';
 import { ListItem, ListItemText } from '@mui/material';
+import { Link } from "react-router-dom";
 
 
 
@@ -45,7 +46,11 @@ export default function SearchBar() {
             />
             <List>
                 {searchResults.map((result: any) => (
-                    <ListItem key={result.symbol}>
+                    <ListItem
+                    key={result.symbol}
+                    component={Link}
+                    to={`/details/${result.symbol}`}
+                    onClick={() => setSearchResults([])}>
                         <ListItemText primary={`${result.symbol} - ${result.name}`} secondary={result.exchange} />
                     </ListItem>
                 ))}
