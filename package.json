@@ -8,7 +8,10 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "concurrently \"cd PERN/server && npm run dev\" \"cd PERN/client && npm run dev\""
+    "dev": "concurrently \"cd PERN/server && npm run dev\" \"cd PERN/client && npm run dev\"",
+    "build": "cd PERN/server && npm run build && cd ../client && npm run build",
+    "prod": "cd PERN/server && npm run start",
+    "install": "cd PERN/server && npm install && cd ../client && npm install"
   },
   "keywords": [],
   "author": "",
