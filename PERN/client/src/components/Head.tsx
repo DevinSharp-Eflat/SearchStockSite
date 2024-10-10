@@ -26,7 +26,7 @@ export default function Head() {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
-        <Toolbar>
+        <Toolbar sx={{ backgroundColor: 'darkorange'}}>
           <IconButton
             size="large"
             edge="start"
@@ -36,7 +36,7 @@ export default function Head() {
           >
             {/* <MenuIcon /> */}
           </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1, backgroundColor: 'darkorange'}}>
             Buy Curious
           </Typography>
           {!userDetails.username && (

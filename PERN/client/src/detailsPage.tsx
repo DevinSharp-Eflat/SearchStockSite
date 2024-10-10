@@ -1,29 +1,11 @@
-import * as React from 'react';
 import Box from '@mui/material/Box';
-import List from '@mui/material/List';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import { styled } from '@mui/material/styles';
 import { useEffect, useState } from 'react';
-import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid2';
 import { useParams } from 'react-router-dom';
 import { Button, Divider, Stack } from '@mui/material';
 import axios from 'axios';
-import { alignProperty } from '@mui/material/styles/cssUtils';
+import SearchBar from './components/SearchBar';
+import * as React from 'react';
 
-
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-  ...theme.applyStyles('dark', {
-    backgroundColor: '#1A2027',
-  }),
-}));
 
 
 function DetailsPage() {
@@ -32,6 +14,11 @@ function DetailsPage() {
   const [data, setData] = useState({ symbol: "", open: 0, high: 0, low: 0, close: 0 });
   const { stockTicker } = useParams();
   const [userDetails, setUserDetails] = useState({ userId: "" });
+
+  const [rerender, setRerender] = useState(false);
+  const toggleRender = () => {
+    setRerender(!rerender)
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -65,6 +52,7 @@ function DetailsPage() {
 
   return (
     <>
+    <SearchBar toggleRender/>
       <Box sx={{ flexGrow: 1, border: 10, borderColor: "darkorange", bgcolor: "orange", textTransform: 'uppercase', alignSelf: 'center' }}>
         <Stack direction="row" spacing={20} sx={{alignItems: 'center'}}>
           <h1>{data.symbol}</h1>
