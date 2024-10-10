@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { Stock } from '../models/StockModel.js';
+import { Stock } from '../rename/StockModel.js';
 import fetch from 'node-fetch'; 
 
 const router = Router();
