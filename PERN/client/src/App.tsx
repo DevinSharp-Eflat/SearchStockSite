@@ -1,5 +1,4 @@
 import React, { useMemo } from "react";
-
 import "./App.css";
 import { Outlet } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material/styles";

@@ -49,7 +49,6 @@ export function UserFactory(sequelize: Sequelize) {
       favoriteStocks: {
         type: DataTypes.STRING,
         allowNull: true,
-
       },
     },
     {

@@ -1,6 +1,6 @@
-import { Router } from "express";
-import { Stock } from "../models/StockModel.js";
-import fetch from "node-fetch";
+import { Router } from 'express';
+import { Stock } from '../models/StockModel.js';
+import fetch from 'node-fetch'; 
 
 const router = Router();
 router.get("/timeSeries", async (req, res) => {
@@ -9,7 +9,7 @@ router.get("/timeSeries", async (req, res) => {
   if (!symbol) {
     return res.status(400).json({ message: "Stock symbol is required" });
   }
-
+ 
   try {
     const response = await fetch(
       `https://api.twelvedata.com/time_series?symbol=${symbol}&interval=1day&apikey=YOUR_API_KEY`
