@@ -23,7 +23,7 @@ function DetailsPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:3001/stockDetails/${stockTicker}`);
+        const response = await fetch(`/stockDetails/${stockTicker}`);
         const jsonData = await response.json();
         console.log("fetched data or sumthin", jsonData);
         setData(jsonData[0]);
