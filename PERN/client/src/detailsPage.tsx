@@ -65,7 +65,7 @@ function DetailsPage() {
 
   return (
     <>
-      <Box sx={{ width: "80%", height: "60%", border: 10, bgcolor: "lightgrey", textTransform: 'uppercase', alignSelf: 'center' }}>
+      <Box sx={{ flexGrow: 1, border: 10, borderColor: "darkorange", bgcolor: "orange", textTransform: 'uppercase', alignSelf: 'center' }}>
         <Stack direction="row" spacing={20} sx={{alignItems: 'center'}}>
           <h1>{data.symbol}</h1>
           {userDetails.userId && <Button variant="outlined" onClick={(event) => favoriteClick(event)}>Favorite</Button>}
