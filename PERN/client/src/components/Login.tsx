@@ -1,7 +1,6 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
 import FormLabel from "@mui/material/FormLabel";
 import FormControl from "@mui/material/FormControl";
 import Link from "@mui/material/Link";
@@ -9,12 +8,7 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import MuiCard from "@mui/material/Card";
-import {
-  createTheme,
-  ThemeProvider,
-  styled,
-  PaletteMode,
-} from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import axios from "axios";
 
 const Card = styled(MuiCard)(({ theme }) => ({
@@ -49,24 +43,10 @@ const SignUpContainer = styled(Stack)(({ theme }) => ({
 }));
 
 export default function Login() {
-  const [mode, setMode] = React.useState<PaletteMode>("light");
-  const defaultTheme = createTheme({ palette: { mode } });
   const [passwordError, setPasswordError] = React.useState(false);
   const [passwordErrorMessage, setPasswordErrorMessage] = React.useState("");
   const [usernameError, setUsernameError] = React.useState(false);
   const [usernameErrorMessage, setUsernameErrorMessage] = React.useState("");
-
-  React.useEffect(() => {
-    const savedMode = localStorage.getItem("themeMode") as PaletteMode | null;
-    if (savedMode) {
-      setMode(savedMode);
-    } else {
-      const systemPrefersDark = window.matchMedia(
-        "(prefers-color-scheme: dark)"
-      ).matches;
-      setMode(systemPrefersDark ? "dark" : "light");
-    }
-  }, []);
 
   const validateInputs = () => {
     const password = document.getElementById("password") as HTMLInputElement;
@@ -116,86 +96,82 @@ export default function Login() {
   };
 
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <CssBaseline enableColorScheme />
+    <SignUpContainer direction="column" justifyContent="space-between">
+      <Stack
+        sx={{
+          justifyContent: "center",
+          height: "100dvh",
+          p: 2,
+        }}
+      >
+        <Card variant="outlined">
+          <Typography
+            component="h1"
+            variant="h4"
+            sx={{ width: "100%", fontSize: "clamp(2rem, 10vw, 2.15rem)" }}
+          >
+            Login
+          </Typography>
+          <Box
+            component="form"
+            onSubmit={handleSubmit}
+            sx={{ display: "flex", flexDirection: "column", gap: 2 }}
+          >
+            <FormControl>
+              <FormLabel htmlFor="username">Username</FormLabel>
+              <TextField
+                autoComplete="username"
+                name="username"
+                required
+                fullWidth
+                id="username"
+                placeholder="Username"
+                error={usernameError}
+                helperText={usernameErrorMessage}
+                color={usernameError ? "error" : "primary"}
+              />
+            </FormControl>
 
-      <SignUpContainer direction="column" justifyContent="space-between">
-        <Stack
-          sx={{
-            justifyContent: "center",
-            height: "100dvh",
-            p: 2,
-          }}
-        >
-          <Card variant="outlined">
-            <Typography
-              component="h1"
-              variant="h4"
-              sx={{ width: "100%", fontSize: "clamp(2rem, 10vw, 2.15rem)" }}
+            <FormControl>
+              <FormLabel htmlFor="password">Password</FormLabel>
+              <TextField
+                required
+                fullWidth
+                name="password"
+                placeholder="••••••"
+                type="password"
+                id="password"
+                autoComplete="new-password"
+                variant="outlined"
+                error={passwordError}
+                helperText={passwordErrorMessage}
+                color={passwordError ? "error" : "primary"}
+              />
+            </FormControl>
+
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              onClick={validateInputs}
             >
               Login
+            </Button>
+            <Typography sx={{ textAlign: "center" }}>
+              Don't have an account?{" "}
+              <span>
+                <Link
+                  href="/signup"
+                  variant="body2"
+                  sx={{ alignSelf: "center" }}
+                >
+                  Create Account
+                </Link>
+              </span>
             </Typography>
-            <Box
-              component="form"
-              onSubmit={handleSubmit}
-              sx={{ display: "flex", flexDirection: "column", gap: 2 }}
-            >
-              <FormControl>
-                <FormLabel htmlFor="username">Username</FormLabel>
-                <TextField
-                  autoComplete="username"
-                  name="username"
-                  required
-                  fullWidth
-                  id="username"
-                  placeholder="Username"
-                  error={usernameError}
-                  helperText={usernameErrorMessage}
-                  color={usernameError ? "error" : "primary"}
-                />
-              </FormControl>
-
-              <FormControl>
-                <FormLabel htmlFor="password">Password</FormLabel>
-                <TextField
-                  required
-                  fullWidth
-                  name="password"
-                  placeholder="••••••"
-                  type="password"
-                  id="password"
-                  autoComplete="new-password"
-                  variant="outlined"
-                  error={passwordError}
-                  helperText={passwordErrorMessage}
-                  color={passwordError ? "error" : "primary"}
-                />
-              </FormControl>
-
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                onClick={validateInputs}
-              >
-                Login
-              </Button>
-              <Typography sx={{ textAlign: "center" }}>
-                Don't have an account?{" "}
-                <span>
-                  <Link
-                    href="/signup"
-                    variant="body2"
-                    sx={{ alignSelf: "center" }}
-                  >
-                    Create Account
-                  </Link>
-                </span>
-              </Typography>
-            </Box>
-          </Card>
-        </Stack>
-      </SignUpContainer>
-    </ThemeProvider>
+          </Box>
+        </Card>
+      </Stack>
+    </SignUpContainer>
   );
 }
