@@ -48,7 +48,7 @@ function HomePage() {
         <SearchBar/>
 
             <h1>Top 5 performing stocks</h1>
-            <Box sx ={{ width:'100%' , bgcolor: 'yellow'}}>
+            <Box sx ={{ width:'100%' , bgcolor: 'orange'}}>
                 {data && data.map(stock => (
                 <List>
                     <ListItemButton
