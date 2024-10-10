@@ -15,6 +15,11 @@ function DetailsPage() {
   const { stockTicker } = useParams();
   const [userDetails, setUserDetails] = useState({ userId: "" });
 
+  const [rerender, setRerender] = useState(false);
+  const toggleRender = () => {
+    setRerender(!rerender)
+  }
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -47,6 +52,7 @@ function DetailsPage() {
 
   return (
     <>
+    <SearchBar toggleRender/>
       <Box sx={{ flexGrow: 1, border: 10, borderColor: "darkorange", bgcolor: "orange", textTransform: 'uppercase', alignSelf: 'center' }}>
         <Stack direction="row" spacing={20} sx={{alignItems: 'center'}}>
           <h1>{data.symbol}</h1>

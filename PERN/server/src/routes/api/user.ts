@@ -40,6 +40,7 @@ router.post("/login", async (req, res) => {
 });
 
 router.post("/verify", async (req, res) => {
+  if (!req.body.token) res.status(401).send();
   const token = req.body.token;
   const jwtSecret:any = process.env.JWT_SECRET;
   try {

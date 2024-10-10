@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 
 
 
-export default function SearchBar() {
+export default function SearchBar(props: any) {
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState([]);
 
@@ -50,7 +50,9 @@ export default function SearchBar() {
                     key={result.symbol}
                     component={Link}
                     to={`/details/${result.symbol}`}
-                    onClick={() => setSearchResults([])}>
+                    onClick={() => {
+                        props.toggleRender()
+                        setSearchResults([])}}>
                         <ListItemText primary={`${result.symbol} - ${result.name}`} secondary={result.exchange} />
                     </ListItem>
                 ))}
