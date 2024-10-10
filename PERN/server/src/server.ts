@@ -19,10 +19,10 @@ app.use(express.static("../client/dist"));
 
 app.use(express.json());
 
+app.use(routes);
 app.get('/*', function (_req, res) {
   res.sendFile(path.join(__dirname, '../../client/dist', 'index.html'));
 });
-app.use(routes);
 
 sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => {
