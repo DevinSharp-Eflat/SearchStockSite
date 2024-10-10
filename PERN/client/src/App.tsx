@@ -9,13 +9,18 @@ import { Button, PaletteMode } from "@mui/material";
 import Head from "./components/Head";
 
 
+
+
 export default function App() {
-  const [theme, setTheme] = useState('dark' as PaletteMode)
+  const [theme, setTheme] = useState('dark' as PaletteMode); 
   const themeData = useMemo(() =>  createTheme({
     palette: {
       mode: theme,
     },
   }),[theme]);
+
+  
+
   return (
     <>
       <ThemeProvider theme={themeData}>
