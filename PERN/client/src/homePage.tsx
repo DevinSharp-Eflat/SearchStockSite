@@ -7,6 +7,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { useEffect, useState } from 'react';
+import SearchBar from './components/SearchBar';
 //import Divider from '@mui/material/Divider';
 
 function HomePage() {
@@ -44,6 +45,7 @@ function HomePage() {
 
     return (
         <>
+        <SearchBar/>
 
             <h1>Top 5 performing stocks</h1>
             <Box sx ={{ width:'100%' , bgcolor: 'yellow'}}>
